@@ -1,0 +1,81 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: #0b0b0e;
+  color: #fff;
+  -webkit-font-smoothing: antialiased;
+}
+body {
+  font-family: var(--font-body), "Segoe Script", cursive;
+}
+/* Changa One for headings. Every <Fold> renders an h1/h2, so the element
+   selector covers them without touching the call sites. The face has one
+   weight — font-synthesis keeps the inline fontWeight: 900 on those headings
+   from being faked by the browser. */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading), Impact, sans-serif;
+  font-synthesis: none;
+}
+a {
+  color: #fff;
+  text-decoration: none;
+}
+a:hover {
+  color: #e11d2b;
+}
+::selection {
+  background: #e11d2b;
+  color: #fff;
+}
+/* Entrance start states.
+   These are server-rendered so the first paint already shows the hidden state.
+   Without them the browser paints the finished element, then GSAP rewinds it
+   when the observer fires — the one-frame flash on scroll. GSAP writes inline
+   styles from a layout effect onwards, which win over these rules. */
+.dx-hidden {
+  opacity: 0;
+}
+.dx-stagger > * {
+  opacity: 0;
+}
+.dx-piece {
+  display: inline-block;
+  opacity: 0;
+  backface-visibility: hidden;
+}
+.dx-word {
+  display: inline-block;
+  opacity: 0.12;
+  filter: blur(4px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dx-hidden,
+  .dx-stagger > *,
+  .dx-piece,
+  .dx-word {
+    opacity: 1 !important;
+    filter: none !important;
+    transform: none !important;
+  }
+  .dx-loop {
+    animation: none !important;
+  }
+}
+
+@keyframes dx-shine {
+  to {
+    background-position: -200% center;
+  }
+}
+@keyframes dx-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
