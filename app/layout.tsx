@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Changa_One, Caveat } from "next/font/google";
+import { Changa_One, Merienda } from "next/font/google";
 import "./globals.css";
 
 // Changa One ships a single weight (400) in roman and italic — the heading rule in
@@ -13,8 +13,10 @@ const heading = Changa_One({
   display: "swap",
 });
 
-// Caveat is variable across 400..700, so no weight list — the full axis is loaded.
-const caveat = Caveat({
+// Merienda is variable across 300..900, so no weight list — the full axis is loaded.
+// The 300..900 range matters: the pages set fontWeight 800/900 on labels and figures,
+// which a 400..700 face would clamp instead of rendering.
+const bodyFont = Merienda({
   subsets: ["latin"],
   variable: "--font-body",
   display: "swap",
@@ -35,7 +37,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <style>{`.dx-hidden,.dx-stagger>*,.dx-piece,.dx-word{opacity:1!important;filter:none!important;transform:none!important}`}</style>
         </noscript>
       </head>
-      <body className={`${heading.variable} ${caveat.variable}`}>{children}</body>
+      <body className={`${heading.variable} ${bodyFont.variable}`}>{children}</body>
     </html>
   );
 }
